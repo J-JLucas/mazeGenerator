@@ -3,16 +3,26 @@
 // https://en.wikipedia.org/wiki/Maze_generation_algorithm
 
 #include <iostream>
+#include <vector>
 
 //maze is a mxn grid of cells
-#define m 4
+#define m 5
 #define n 5
 
 class Cell {
-	public:
-		bool visited;
-	Cell(){
-		visited = false;
+    public:
+	std::vector<int> location;  // 2D coordinates
+        bool visited {false};
+
+	//neighbors
+	bool northLink {false};
+	bool eastLink {false};
+	bool southLink {false};
+	bool westLink {false};
+	
+	Cell()
+	{
+
 	}
 
 	bool getStatus() {
