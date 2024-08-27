@@ -1,7 +1,9 @@
-#include "testMaze.h"
+#include "testCell.h"
+#include "testGrid.h"
 
 int main()
 {
-  testMaze();
+  testCell();
+  testGrid();
   return 0;
 }
