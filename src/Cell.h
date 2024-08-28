@@ -28,10 +28,10 @@ public:
   Cell &getEast();
   Cell &getSouth();
   Cell &getWest();
-  void setNorth(Cell *cell);
-  void setEast(Cell *cell);
-  void setSouth(Cell *cell);
-  void setWest(Cell *cell);
+  void setNorth(Cell *cell) { north = cell; }
+  void setEast(Cell *cell) { east = cell; }
+  void setSouth(Cell *cell) { south = cell; }
+  void setWest(Cell *cell) { west = cell; }
 
   void link(Cell *cell, bool bidirectional = true);
   void unlink(Cell *cell, bool bidirectional = true);

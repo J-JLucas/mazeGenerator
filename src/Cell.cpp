@@ -1,6 +1,7 @@
 #include "Cell.h"
 
 /* Cell */
+
 void Cell::link(Cell *cell, bool bidirectional)
 {
   neighbors[cell] = true;
