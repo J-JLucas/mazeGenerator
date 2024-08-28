@@ -1,8 +1,7 @@
 #include "Grid.h"
 #include "Cell.h"
+#include "RNG.h"
 #include <iostream>
-#include <random>
-#include <stdexcept>
 
 /* Grid */
 Grid::~Grid() { operator delete[](cells); }
@@ -37,20 +36,20 @@ void Grid::initCells()
   }
 }
 
-// Access operator for cell object at row, column
-Cell &Grid::operator()(int row, int column)
+// Access operator for cell object pointer at row, column
+Cell *Grid::operator()(int row, int column)
 {
   if (row < 0 || row >= m || column < 0 || column >= n) {
-    throw std::out_of_range("Invalid cell index");
+    return nullptr;
   }
-  return cells[row * n + column];
+  return &cells[row * n + column];
 }
 
-// Returns a random cell from the grid
-Cell &Grid::getRandCell()
+// Returns a pointer to a random cell from the grid
+Cell *Grid::getRandCell()
 {
-  int r_i = r_distrib(rng);
-  int r_j = c_distrib(rng);
+  int r_i = rngEngine.getRandInt() % m;
+  int r_j = rngEngine.getRandInt() % n;
   std::cout << "Random cell: " << r_i << ", " << r_j << std::endl;
-  return cells[r_i * n + r_j];
+  return &cells[r_i * n + r_j];
 }
