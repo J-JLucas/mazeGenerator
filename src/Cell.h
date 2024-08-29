@@ -21,16 +21,19 @@ public:
   {
   }
 
+  bool operator==(const Cell &other) const;
+  bool operator!=(const Cell &other) const;
+
   int getRow() const { return i; }
   // void setRow(int row) { i = row; }
   int getColumn() const { return j; }
   // void setColumn(int col) { j = col; }
   std::unordered_map<Cell *, bool> &getNeighbors() { return neighbors; }
 
-  Cell &getNorth();
-  Cell &getEast();
-  Cell &getSouth();
-  Cell &getWest();
+  Cell &getNorth() { return *north; }
+  Cell &getEast() { return *east; }
+  Cell &getSouth() { return *south; }
+  Cell &getWest() { return *west; }
   void setNorth(Cell *cell) { north = cell; }
   void setEast(Cell *cell) { east = cell; }
   void setSouth(Cell *cell) { south = cell; }

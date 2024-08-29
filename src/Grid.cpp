@@ -50,6 +50,5 @@ Cell *Grid::getRandCell()
 {
   int r_i = rngEngine.getRandInt() % m;
   int r_j = rngEngine.getRandInt() % n;
-  std::cout << "Random cell: " << r_i << ", " << r_j << std::endl;
   return &cells[r_i * n + r_j];
 }

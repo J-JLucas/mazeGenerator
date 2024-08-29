@@ -13,13 +13,12 @@ void testCell()
   assert(c2.getRow() == 1 && "getRow() should == 1");
   assert(c2.getColumn() == 4 && "getColumn() should == 4");
 
-  // test reference set  ** NEED CLASS EQUALITY OPERATOR
+  // test reference is set
   c1.setNorth(&c2);
   c2.setSouth(&c1);
-  /*
+
   assert(c1.getNorth() == c2 && "c1's north should be c2");
   assert(c2.getSouth() == c1 && "c2's south should be c1");
-  */
 
   /** Test Neighbor linkage **/
 

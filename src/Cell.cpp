@@ -2,6 +2,13 @@
 
 /* Cell */
 
+bool Cell::operator==(const Cell &other) const
+{
+  return i == other.i && j == other.j;
+}
+
+bool Cell::operator!=(const Cell &other) const { return !(*this == other); }
+
 void Cell::link(Cell *cell, bool bidirectional)
 {
   neighbors[cell] = true;
