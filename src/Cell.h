@@ -16,12 +16,15 @@ private:
   Cell *west;
 
 public:
-  Cell(int i, int j) {}
+  Cell(int i, int j)
+      : i(i), j(j), north(nullptr), east(nullptr), south(nullptr), west(nullptr)
+  {
+  }
 
-  int getRow() { return i; }
-  void setRow(int row) { i = row; }
-  int getColumn() { return j; }
-  void setColumn(int col) { j = col; }
+  int getRow() const { return i; }
+  // void setRow(int row) { i = row; }
+  int getColumn() const { return j; }
+  // void setColumn(int col) { j = col; }
   std::unordered_map<Cell *, bool> &getNeighbors() { return neighbors; }
 
   Cell &getNorth();
