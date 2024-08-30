@@ -4,9 +4,14 @@
 #include "../src/Grid.h"
 #include <iostream>
 
+#define m 10
+#define n 20
+
 void testBinaryTreeMaze()
 {
-  Grid grid(4, 4);
+  Grid grid(m, n);
+  grid.printGrid();
+  std::cout << std::endl;
   BinaryTreeMaze::generateMaze(&grid);
   grid.printGrid();
   std::cout << "BinaryTree Maze tests passed" << std::endl;
