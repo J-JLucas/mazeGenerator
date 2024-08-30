@@ -26,6 +26,7 @@ public:
   ~Grid();
 
   Cell *operator()(int row, int column);
+  void printGrid();
   Cell *getRandCell();
   int getRowLength() { return m; }
   int getColLength() { return n; }
