@@ -5,9 +5,9 @@
 
 int main()
 {
-  testCell();
+  // testCell();
   testGrid();
-  // testBinaryTreeMaze();
+  testBinaryTreeMaze();
   // testSidewinderMaze();
   return 0;
 }

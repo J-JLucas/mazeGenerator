@@ -41,5 +41,5 @@ public:
 
   void link(Cell *cell, bool bidirectional = true);
   void unlink(Cell *cell, bool bidirectional = true);
-  bool isLinked(Cell *cell) { return neighbors[cell]; }
+  bool isLinked(Cell *cell);
 };
