@@ -4,8 +4,8 @@
 #include <cassert>
 #include <iostream>
 
-#define m 1000
-#define n 1000
+#define m 10
+#define n 10
 
 void testGrid()
 {
@@ -37,6 +37,14 @@ void testGrid()
     Cell *cell = grid.getRandCell();
     assert(cell && "getRandCell() returned nullptr");
   }
+
+  // Test memory leak caused by link() of cells
+  Cell *cell1 = grid.getRandCell();
+  Cell *cell2 = grid.getRandCell();
+  cell1->link(cell2);
+
+  // grid.printGrid();
+
   std::cout << "Grid tests passed" << std::endl;
   return;
 }

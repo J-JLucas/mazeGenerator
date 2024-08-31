@@ -4,7 +4,13 @@
 #include <iostream>
 
 /* Grid */
-Grid::~Grid() { operator delete[](cells); }
+Grid::~Grid()
+{
+  for (int i = 0; i < m * n; ++i) {
+    cells[i].~Cell();
+  }
+  operator delete[](cells);
+}
 
 // Allocate m*n memory for the grid of cells
 void Grid::initGrid()

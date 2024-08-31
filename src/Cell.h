@@ -20,6 +20,7 @@ public:
       : i(i), j(j), north(nullptr), east(nullptr), south(nullptr), west(nullptr)
   {
   }
+  ~Cell() { neighbors.clear(); }
 
   bool operator==(const Cell &other) const;
   bool operator!=(const Cell &other) const;
@@ -41,5 +42,5 @@ public:
 
   void link(Cell *cell, bool bidirectional = true);
   void unlink(Cell *cell, bool bidirectional = true);
-  bool isLinked(Cell *cell) { return neighbors[cell]; }
+  bool isLinked(Cell *cell);
 };
