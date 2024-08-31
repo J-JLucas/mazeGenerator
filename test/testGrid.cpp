@@ -38,6 +38,11 @@ void testGrid()
     assert(cell && "getRandCell() returned nullptr");
   }
 
+  // Test memory leak caused by link() of cells
+  Cell *cell1 = grid.getRandCell();
+  Cell *cell2 = grid.getRandCell();
+  cell1->link(cell2);
+
   // grid.printGrid();
 
   std::cout << "Grid tests passed" << std::endl;

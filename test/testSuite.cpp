@@ -5,8 +5,8 @@
 
 int main()
 {
-  // testCell();
-  // testGrid();
+  testCell();
+  testGrid();
   testBinaryTreeMaze();
   testSidewinderMaze();
   return 0;

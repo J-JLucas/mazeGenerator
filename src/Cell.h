@@ -20,6 +20,7 @@ public:
       : i(i), j(j), north(nullptr), east(nullptr), south(nullptr), west(nullptr)
   {
   }
+  ~Cell() { neighbors.clear(); }
 
   bool operator==(const Cell &other) const;
   bool operator!=(const Cell &other) const;
