@@ -1,5 +1,8 @@
-#include "Grid.h"
+#define STB_IMAGE_WRITE_IMPLEMENTATION
+#include "imageWrite/stb_image_write.h"
+
 #include "Cell.h"
+#include "Grid.h"
 #include "RNG.h"
 #include <iostream>
 
@@ -87,6 +90,103 @@ void Grid::printGrid()
     }
     // print the wall row strings
     std::cout << top << "\n" << bottom << std::endl;
+  }
+}
+
+// Writes a graphical representation of the grid to a file
+// Uses stb_image_write.h by https://github.com/nothings/stb
+// output a PNG image
+void Grid::writeImage()
+{
+  const int macropixel_size = 32; // Size of each cell
+  const int border_size = 1;      // Border ring of 1 macropixel
+  const int width =
+      (getColLength() + 2 * border_size) * macropixel_size; // Total image width
+  const int height = (getRowLength() + 2 * border_size) *
+                     macropixel_size; // Total image height
+  const int channels = 3;             // RGB channels
+
+  // Create an image buffer
+  unsigned char *image = new unsigned char[width * height * channels]();
+  std::fill(image, image + width * height * channels, 0); // black fill
+
+  // Iterate over each cell in the grid
+  for (int i = 0; i < getRowLength(); i++) {
+    for (int j = 0; j < getColLength(); j++) {
+      Cell *cell = &cells[i * n + j];
+      int base_x = (j + border_size) * macropixel_size;
+      int base_y = (i + border_size) * macropixel_size;
+
+      // Draw the south wall if it exists
+      if (!cell->isLinked(&(cell->getSouth()))) {
+        for (int dx = 0; dx < macropixel_size; ++dx) {
+          int pixel_x = base_x + dx;
+          int pixel_y =
+              base_y + macropixel_size - 1; // Bottom row of the macropixel
+          for (int k = 0; k < channels; ++k) {
+            image[(pixel_y * width + pixel_x) * channels + k] =
+                255; // Set pixel to white
+          }
+        }
+      }
+
+      // Draw the east wall if it exists
+      if (!cell->isLinked(&(cell->getEast()))) {
+        for (int dy = 0; dy < macropixel_size; ++dy) {
+          int pixel_x = base_x + macropixel_size -
+                        1; // Rightmost column of the macropixel
+          int pixel_y = base_y + dy;
+          for (int k = 0; k < channels; ++k) {
+            image[(pixel_y * width + pixel_x) * channels + k] =
+                255; // Set pixel to white
+          }
+        }
+      }
+
+      // Draw the north wall if we're on the top row
+      if (i == 0) {
+        for (int dx = 0; dx < macropixel_size; ++dx) {
+          int pixel_x = base_x + dx;
+          int pixel_y = base_y;
+          for (int k = 0; k < channels; ++k) {
+            image[(pixel_y * width + pixel_x) * channels + k] =
+                255; // Set pixel to white
+          }
+        }
+      }
+
+      // Draw the west wall if we're on the leftmost column
+      if (j == 0) {
+        for (int dy = 0; dy < macropixel_size; ++dy) {
+          int pixel_x = base_x;
+          int pixel_y = base_y + dy;
+          for (int k = 0; k < channels; ++k) {
+            image[(pixel_y * width + pixel_x) * channels + k] =
+                255; // Set pixel to white
+          }
+        }
+      }
+    }
+  }
+
+  // Write the image to a PNG file
+  stbi_write_png("maze.png", width, height, channels, image, width * channels);
+
+  delete[] image;
+}
+
+void Grid::fillMacropixel(unsigned char *image, int x, int y, int r, int g,
+                          int b)
+{
+  for (int i = 0; i < macropixelSize; i++) {
+    for (int j = 0; j < macropixelSize; j++) {
+      int index = ((y * macropixelSize + i) * n * macropixelSize +
+                   x * macropixelSize + j) *
+                  3;
+      image[index] = r;
+      image[index + 1] = g;
+      image[index + 2] = b;
+    }
   }
 }
 
